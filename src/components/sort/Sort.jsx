@@ -1,4 +1,8 @@
-function Sort(params) {
+import { useState } from 'react';
+function Sort() {
+  const [open, setOpen] = useState(false);
+  const [sortIndex, setSortIndex] = useState(0);
+  const sortName = ['популярности', 'цене', 'алфавиту'];
   return (
     <div className="sort">
       <div className="sort__label">
@@ -15,17 +19,28 @@ function Sort(params) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setOpen(!open)}>{sortName[sortIndex]}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {open && (
+        <div className="sort__popup">
+          <ul>
+            {sortName.map((value, index) => (
+              <li
+                onClick={() => {
+                  setSortIndex(index);
+                  setOpen(false)
+                }}
+                key={index}
+                className={sortIndex === index ? 'active' : ''}
+              >
+                {value}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
 
-export default Sort
+export default Sort;
