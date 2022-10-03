@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
+import React from 'react';
 
 import Categories from '../components/categories/Categories';
 import Sort from '../components/sort/Sort';
 import PizzaBlock from '../components/pizzaBlock/PizzaBlock';
 import Skeleton from '../components/pizzaBlock/Skeleton';
 import Pogination from '../components/Pogination/Pogination';
+import { SearchContext } from '../App';
 
-function Home({ searchInput }) {
+function Home() {
+  const { searchInput } = React.useContext(SearchContext);
   let [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState(0);
@@ -61,9 +64,7 @@ function Home({ searchInput }) {
           ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
           : pizzas.map((value, index) => <PizzaBlock key={index} {...value} />)}
       </div>
-      <Pogination
-        onClickSelect={(selected) => setPoginationSelect(selected)}
-      />
+      <Pogination onClickSelect={(selected) => setPoginationSelect(selected)} />
     </div>
   );
 }

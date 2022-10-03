@@ -1,7 +1,20 @@
+import React from 'react';
+
 import style from './Search.module.scss';
-function Search({onInput, searchInput}) {
-  return <input value={searchInput} onInput={onInput} className={style.input} placeholder="Поиск пиццы..." />;
+import { SearchContext } from '../../App';
+
+function Search() {
+  const { searchInput, setSearchInput } = React.useContext(SearchContext);
+  return (
+    <input
+      value={searchInput}
+      onChange={(e) =>
+        setSearchInput(e.target.value.toLocaleLowerCase().trim())
+      }
+      className={style.input}
+      placeholder="Поиск пиццы..."
+    />
+  );
 }
 
-
-export default Search
+export default Search;
