@@ -1,7 +1,7 @@
 import ReactPaginate from 'react-paginate';
 import style from './Pogination.module.scss';
 
-function Pogination({onClickSelect, poginationSelect}) {
+function Pogination({ onClickSelect, poginationSelect }) {
   // const handlePageClick = (event) => {
   //     const newOffset = (event.selected * itemsPerPage) % items.length;
   //     console.log(
@@ -15,7 +15,7 @@ function Pogination({onClickSelect, poginationSelect}) {
         className={style.root}
         breakLabel="..."
         nextLabel=">"
-        onPageChange={(e) => onClickSelect(e.selected)}
+        onPageChange={(e) => onClickSelect(e.selected + 1)}
         pageRangeDisplayed={4}
         pageCount={3}
         previousLabel="<"

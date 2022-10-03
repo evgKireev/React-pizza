@@ -62,7 +62,7 @@ function Home({ searchInput }) {
           : pizzas.map((value, index) => <PizzaBlock key={index} {...value} />)}
       </div>
       <Pogination
-        onClickSelect={(selected) => setPoginationSelect(selected + 1)}
+        onClickSelect={(selected) => setPoginationSelect(selected)}
       />
     </div>
   );
