@@ -13,6 +13,7 @@ function App() {
     <div className="App">
       <div className="wrapper">
         <Header
+        searchInput={searchInput}
           onInput={(e) =>
             setSearchInput(e.target.value.toLocaleLowerCase().trim())
           }

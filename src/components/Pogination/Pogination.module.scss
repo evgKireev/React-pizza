@@ -1,0 +1,25 @@
+.root {
+  display: flex;
+  gap: 15px;
+
+  a {
+    border-radius: 50%;
+    padding: 15px 20px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #fe5f1e;
+    color: #fe5f1e;
+    &:hover {
+      color: #fff;
+      background-color: #fe5f1e;
+    }
+  }
+  :global {
+    .selected {
+      a {
+        color: #fff;
+        background-color: #fe5f1e;
+      }
+    }
+  }
+}

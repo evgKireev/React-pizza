@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Search from '../Search/Search';
 
-function Header({onInput}) {
+function Header({onInput, searchInput}) {
   return (
     <div className="header">
       <div className="container">
@@ -14,7 +14,7 @@ function Header({onInput}) {
             </div>
           </div>
         </Link>
-        <Search onInput={onInput} />
+        <Search onInput={onInput} searchInput={searchInput} />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>520 ₽</span>

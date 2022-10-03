@@ -1,6 +1,6 @@
 import style from './Search.module.scss';
-function Search({onInput}) {
-  return <input onInput={onInput} className={style.input} placeholder="Поиск пиццы..." />;
+function Search({onInput, searchInput}) {
+  return <input value={searchInput} onInput={onInput} className={style.input} placeholder="Поиск пиццы..." />;
 }
 
 

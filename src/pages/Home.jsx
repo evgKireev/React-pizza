@@ -4,11 +4,13 @@ import Categories from '../components/categories/Categories';
 import Sort from '../components/sort/Sort';
 import PizzaBlock from '../components/pizzaBlock/PizzaBlock';
 import Skeleton from '../components/pizzaBlock/Skeleton';
+import Pogination from '../components/Pogination/Pogination';
 
 function Home({ searchInput }) {
   let [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState(0);
+  const [poginationSelect, setPoginationSelect] = useState(1);
   const [sortValue, setSortValue] = useState({
     name: 'популярности',
     sort: 'rating',
@@ -23,7 +25,7 @@ function Home({ searchInput }) {
     async function getPizzas() {
       try {
         const res = await fetch(
-          `https://6336e7175327df4c43cbdd5f.mockapi.io/items?${categories}&sortBy=${sort}&order=${order}`
+          `https://6336e7175327df4c43cbdd5f.mockapi.io/items?page=${poginationSelect}&limit=4&${categories}&sortBy=${sort}&order=${order}`
         );
 
         const pizza = await res.json();
@@ -35,7 +37,7 @@ function Home({ searchInput }) {
     }
     getPizzas();
     window.scrollTo(0, 0);
-  }, [activeCategory, sortValue]);
+  }, [activeCategory, sortValue, poginationSelect]);
 
   pizzas = pizzas.filter((el) =>
     el.title.toLocaleLowerCase().includes(searchInput)
@@ -59,6 +61,9 @@ function Home({ searchInput }) {
           ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
           : pizzas.map((value, index) => <PizzaBlock key={index} {...value} />)}
       </div>
+      <Pogination
+        onClickSelect={(selected) => setPoginationSelect(selected + 1)}
+      />
     </div>
   );
 }
