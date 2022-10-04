@@ -1,15 +1,17 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSearchInput } from '../../redux/searchSlize';
 
 import style from './Search.module.scss';
-import { SearchContext } from '../../App';
 
 function Search() {
-  const { searchInput, setSearchInput } = React.useContext(SearchContext);
+  const searchInput = useSelector((state) => state.searchSlize.searchInput);
+  const dispatch = useDispatch();
   return (
     <input
       value={searchInput}
       onChange={(e) =>
-        setSearchInput(e.target.value.toLocaleLowerCase().trim())
+        dispatch(setSearchInput(e.target.value.toLocaleLowerCase().trim()))
       }
       className={style.input}
       placeholder="Поиск пиццы..."

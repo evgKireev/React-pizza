@@ -1,27 +1,27 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import Categories from '../components/categories/Categories';
 import Sort from '../components/sort/Sort';
 import PizzaBlock from '../components/pizzaBlock/PizzaBlock';
 import Skeleton from '../components/pizzaBlock/Skeleton';
 import Pogination from '../components/Pogination/Pogination';
-import { SearchContext } from '../App';
 
 function Home() {
-  const { searchInput } = React.useContext(SearchContext);
+  const activeCategory = useSelector(
+    (state) => state.filterSlice.activeCategory
+  );
+  const sortValue = useSelector((state) => state.filterSlice.sortValue.sort);
+  const searchInput = useSelector((state) => state.searchSlize.searchInput);
+  const poginationSelect = useSelector((state)=> state.poginationSlice.poginationSelect)
+  
   let [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [poginationSelect, setPoginationSelect] = useState(1);
-  const [sortValue, setSortValue] = useState({
-    name: 'популярности',
-    sort: 'rating',
-  });
 
-  const order = sortValue.sort.includes('-') ? 'asc' : 'desc';
+  const order = sortValue.includes('-') ? 'asc' : 'desc';
   const categories = activeCategory > 0 ? `category=${activeCategory}` : '';
-  const sort = sortValue.sort.replace('-', '');
+  const sort = sortValue.replace('-', '');
 
   useEffect(() => {
     setIsLoading(true);
@@ -49,14 +49,8 @@ function Home() {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories
-          activeCategory={activeCategory}
-          onClickIndex={(index) => setActiveCategory(index)}
-        />
-        <Sort
-          sortValue={sortValue}
-          onClickValue={(index) => setSortValue(index)}
-        />
+        <Categories />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
@@ -64,7 +58,7 @@ function Home() {
           ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
           : pizzas.map((value, index) => <PizzaBlock key={index} {...value} />)}
       </div>
-      <Pogination onClickSelect={(selected) => setPoginationSelect(selected)} />
+      <Pogination />
     </div>
   );
 }

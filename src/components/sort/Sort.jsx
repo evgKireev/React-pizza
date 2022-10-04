@@ -1,5 +1,11 @@
+import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
-function Sort({ sortValue, onClickValue }) {
+import { setSortValue } from '../../redux/filterSlice';
+
+function Sort() {
+  const sortValue = useSelector((state) => state.filterSlice.sortValue);
+  const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
   const sortName = [
     { name: 'популярности (DESC)', sort: 'rating' },
@@ -34,7 +40,7 @@ function Sort({ sortValue, onClickValue }) {
             {sortName.map((value, index) => (
               <li
                 onClick={() => {
-                  onClickValue(value);
+                  dispatch(setSortValue(value));
                   setOpen(false);
                 }}
                 key={index}
