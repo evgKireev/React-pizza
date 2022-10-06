@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 import Categories from '../components/categories/Categories';
 import Sort from '../components/sort/Sort';
@@ -14,8 +15,10 @@ function Home() {
   );
   const sortValue = useSelector((state) => state.filterSlice.sortValue.sort);
   const searchInput = useSelector((state) => state.searchSlize.searchInput);
-  const poginationSelect = useSelector((state)=> state.poginationSlice.poginationSelect)
-  
+  const poginationSelect = useSelector(
+    (state) => state.poginationSlice.poginationSelect
+  );
+
   let [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,21 +28,19 @@ function Home() {
 
   useEffect(() => {
     setIsLoading(true);
-    async function getPizzas() {
-      try {
-        const res = await fetch(
+    try {
+      axios
+        .get(
           `https://6336e7175327df4c43cbdd5f.mockapi.io/items?page=${poginationSelect}&limit=4&${categories}&sortBy=${sort}&order=${order}`
-        );
-
-        const pizza = await res.json();
-        setPizzas(pizza);
-      } catch (error) {
-        console.log(error.message);
-      }
-      setIsLoading(false);
+        ) 
+        .then((pizza) => {
+          setPizzas(pizza.data);
+          setIsLoading(false);
+          window.scrollTo(0, 0);
+        });
+    } catch (error) {
+      console.log(error.message);
     }
-    getPizzas();
-    window.scrollTo(0, 0);
   }, [activeCategory, sortValue, poginationSelect]);
 
   pizzas = pizzas.filter((el) =>

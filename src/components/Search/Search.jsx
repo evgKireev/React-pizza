@@ -10,7 +10,7 @@ function Search() {
   return (
     <input
       value={searchInput}
-      onChange={(e) =>
+      onChange={(e) => 
         dispatch(setSearchInput(e.target.value.toLocaleLowerCase().trim()))
       }
       className={style.input}
