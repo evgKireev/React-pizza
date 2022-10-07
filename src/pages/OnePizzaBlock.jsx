@@ -12,7 +12,7 @@ function OnePizzaBlock() {
     async function getPizza() {
       try {
         const { data } = await axios.get(
-          `https://+6336e7175327df4c43cbdd5f.mockapi.io/items/` + id
+          `https://6336e7175327df4c43cbdd5f.mockapi.io/items/` + id
         );
         setsPizza(data);
       } catch (error) {

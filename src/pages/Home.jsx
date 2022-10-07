@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPizzas } from '../redux/pizzas.Slice';
-import { Link } from 'react-router-dom';
 
 import Categories from '../components/categories/Categories';
 import Sort from '../components/sort/Sort';
@@ -62,11 +61,7 @@ function Home() {
         <div className="content__items">
           {status === 'pending'
             ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
-            : data.map((value, index) => (
-                <Link key={index} to={`pizza/${value.id}`}>
-                  <PizzaBlock {...value} />
-                </Link>
-              ))}
+            : data.map((value, index) => <PizzaBlock key={index} {...value} />)}
         </div>
       )}
       <Pogination />
