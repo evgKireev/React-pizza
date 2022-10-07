@@ -4,6 +4,11 @@
   width: 280px;
   text-align: center;
   margin-bottom: 65px;
+  cursor: pointer;
+  &:hover{
+    transition: all .2s ease-in-out;
+    transform: scale(1.1);
+  }
 
 &-wrapper{
   display: flex;
@@ -65,4 +70,17 @@
     line-height: 27px;
     letter-spacing: 0.015em;
   }
+}
+
+
+.pizza-block-one {
+  padding: 50px;
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 70%;
+  text-align: center;
+  margin-bottom: 65px;
+  margin: 0 auto;
 }
