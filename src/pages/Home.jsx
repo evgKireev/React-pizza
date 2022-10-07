@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchPizzas } from '../redux/pizzas.Slice';
+import { setPizzas } from '../redux/pizzas.Slice';
 
 import Categories from '../components/categories/Categories';
 import Sort from '../components/sort/Sort';
@@ -10,6 +11,7 @@ import Skeleton from '../components/pizzaBlock/Skeleton';
 import Pogination from '../components/Pogination/Pogination';
 
 function Home() {
+  let { data, status } = useSelector((state) => state.pizzasSlice);
   const activeCategory = useSelector(
     (state) => state.filterSlice.activeCategory
   );
@@ -18,32 +20,24 @@ function Home() {
   const poginationSelect = useSelector(
     (state) => state.poginationSlice.poginationSelect
   );
-
-  let [pizzas, setPizzas] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const order = sortValue.includes('-') ? 'asc' : 'desc';
   const categories = activeCategory > 0 ? `category=${activeCategory}` : '';
   const sort = sortValue.replace('-', '');
 
   useEffect(() => {
-    setIsLoading(true);
-    try {
-      axios
-        .get(
-          `https://6336e7175327df4c43cbdd5f.mockapi.io/items?page=${poginationSelect}&limit=4&${categories}&sortBy=${sort}&order=${order}`
-        ) 
-        .then((pizza) => {
-          setPizzas(pizza.data);
-          setIsLoading(false);
-          window.scrollTo(0, 0);
-        });
-    } catch (error) {
-      console.log(error.message);
-    }
+    dispatch(
+      fetchPizzas({
+        order,
+        categories,
+        sort,
+        poginationSelect,
+      })
+    );
+    window.scrollTo(0, 0);
   }, [activeCategory, sortValue, poginationSelect]);
-
-  pizzas = pizzas.filter((el) =>
+  data = data.filter((el) =>
     el.title.toLocaleLowerCase().includes(searchInput)
   );
 
@@ -54,11 +48,23 @@ function Home() {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
-          : pizzas.map((value, index) => <PizzaBlock key={index} {...value} />)}
-      </div>
+      {status === 'rejected' ? (
+        <div className="cart cart--empty">
+          <h2>
+            Произошла ошибка <span>😕</span>
+          </h2>
+          <p>
+            К сожалению, не удалось получить питсы. Попробуйте повторить попытку
+            позже!
+          </p>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === 'pending'
+            ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
+            : data.map((value, index) => <PizzaBlock key={index} {...value} />)}
+        </div>
+      )}
       <Pogination />
     </div>
   );

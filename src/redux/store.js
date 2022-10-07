@@ -3,6 +3,7 @@ import filterSlice from './filterSlice';
 import searchSlize from './searchSlize';
 import poginationSlice from './poginationSlice';
 import cartSlice from './cartSlice';
+import pizzasSlice from './pizzas.Slice';
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     searchSlize,
     poginationSlice,
     cartSlice,
+    pizzasSlice,
   },
 });

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import cartEmptyPng from '../../assets/empty-cart.png'
+import cartEmptyPng from '../../assets/empty-cart.png';
 
 function CartPizzaNane(params) {
   return (
