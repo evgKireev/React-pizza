@@ -16,9 +16,9 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/React-pizza" element={<Home />} />
-            <Route path="/React-pizza/cart" element={<Cart />} />
+            <Route path="React-pizza/cart" element={<Cart />} />
             <Route path="*" element={<NoFound />} />
-            <Route path="/React-pizza/pizza/:id" element={<OnePizzaBlock />} />
+            <Route path="gi React-pizza/pizza/:id" element={<OnePizzaBlock />} />
           </Routes>
         </div>
       </div>
