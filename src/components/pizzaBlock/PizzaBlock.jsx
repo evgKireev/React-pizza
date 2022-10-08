@@ -23,7 +23,7 @@ function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <Link to={`/React-pizza/pizza/${id}`}>
+        <Link to={`pizza/${id}`}>
           <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
         </Link>
         <h4 className="pizza-block__title">{title}</h4>

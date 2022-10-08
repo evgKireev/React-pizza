@@ -117,7 +117,7 @@ function Cart() {
           <div className="cart__bottom-buttons">
             <Link
               className="button button--outline button--add go-back-btn"
-              to="/React-pizza"
+              to="/"
             >
               <svg
                 width="8"
