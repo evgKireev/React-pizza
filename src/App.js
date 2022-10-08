@@ -8,7 +8,6 @@ import Cart from './pages/Cart';
 import NoFound from './pages/NoFound';
 import OnePizzaBlock from './pages/OnePizzaBlock';
 function App() {
-  
   return (
     <div className="App">
       <div className="wrapper">
@@ -18,7 +17,7 @@ function App() {
             <Route path="/React-pizza" element={<Home />} />
             <Route path="React-pizza/cart" element={<Cart />} />
             <Route path="*" element={<NoFound />} />
-            <Route path="gi React-pizza/pizza/:id" element={<OnePizzaBlock />} />
+            <Route path="React-pizza/pizza/:id" element={<OnePizzaBlock />} />
           </Routes>
         </div>
       </div>
