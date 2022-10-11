@@ -1,22 +1,41 @@
+import React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addPizzas } from '../../redux/cartSlice';
+import { addPizzas, CartPizzas } from '../../redux/cartSlice';
 import { Link } from 'react-router-dom';
+import { RootState } from '../../redux/store';
 
-function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
+type PizzaBlockProps = {
+  id: string;
+  imageUrl: string;
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+};
+
+function PizzaBlock({
+  id,
+  imageUrl,
+  title,
+  types,
+  sizes,
+  price,
+}: PizzaBlockProps) {
   const dispatch = useDispatch();
-  const [sizesIndex, setSizesIndex] = useState(0);
-  const [typesIndex, setTypesIndex] = useState(0);
-  const typeName = ['тонкое', 'традиционное'];
-  const cartItem = {
+  const [sizesIndex, setSizesIndex] = useState<number>(0);
+  const [typesIndex, setTypesIndex] = useState<number>(0);
+  const typeName:string[] = ['тонкое', 'традиционное'];
+  const cartItem:CartPizzas = {
     id,
     title,
     imageUrl,
     price,
     types: typeName[typesIndex],
     sizes: sizes[sizesIndex],
+    count: 0,
   };
-  const countItem = useSelector((state) =>
+  const countItem = useSelector((state: RootState) =>
     state.cartSlice.pizzas.find((value) => value.id === id)
   );
   const count = countItem ? countItem.count : 0;

@@ -1,11 +1,14 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../redux/store';
 
 import CartPizza from '../components/cartPizza/CartPizza';
 import { clearPizzas } from '../redux/cartSlice';
 import CartPizzaNane from '../components/cartPizza/CartPizzaNane';
+
 function Cart() {
-  const { pricePizza, pizzas } = useSelector((state) => state.cartSlice);
+  const { pricePizza, pizzas } = useSelector((state: RootState) => state.cartSlice);
   const count = pizzas.reduce(
     (sum, currentValue) => currentValue.count + sum,
     0

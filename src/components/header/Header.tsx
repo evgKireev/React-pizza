@@ -2,18 +2,26 @@ import { Link } from 'react-router-dom';
 import Search from '../Search/Search';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import React from 'react';
+import { RootState } from '../../redux/store';
+
+import logo from '..//..//assets/pizza-logo.svg';
 
 function Header() {
-  const { pricePizza, pizzas } = useSelector((state) => state.cartSlice);
-  const count = pizzas.reduce((sum, value) => sum + value.count, 0);
+  const { pricePizza, pizzas } = useSelector(
+    (state: RootState) => state.cartSlice
+  );
+  const count = pizzas.reduce(
+    (sum: number, value: any) => sum + value.count,
+    0
+  );
   const { pathname } = useLocation();
-
   return (
     <div className="header">
       <div className="container">
         <Link to="/">
           <div className="header__logo">
-            <img width="38" src="img/pizza-logo.svg" alt="Pizza logo" />
+            <img width="38" src={logo} alt="Pizza logo" />
             <div>
               <h1>React Pizza</h1>
               <p>самая вкусная пицца во вселенной</p>

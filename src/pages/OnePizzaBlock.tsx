@@ -1,9 +1,15 @@
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import React from 'react';
+import Skeleton from '../components/pizzaBlock/Skeleton';
 
 function OnePizzaBlock() {
-  const [pizza, setsPizza] = useState({});
+  const [pizza, setsPizza] = useState<{
+    imageUrl: string;
+    title: string;
+    price: number;
+  }>();
   const [error, setError] = useState('');
 
   const { id } = useParams();
@@ -19,8 +25,12 @@ function OnePizzaBlock() {
         setError(error.message);
       }
     }
-    getPizza(pizza);
+    getPizza();
   }, [id]);
+  if (!pizza) {
+    return <Skeleton className="pizza-block-one" />;
+  }
+
   return (
     <div className="pizza-block-one">
       {error ? (

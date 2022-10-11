@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { fetchPizzas } from '../redux/pizzas.Slice';
+import { RootState, useAppDispatch } from '../redux/store';
 
 import Categories from '../components/categories/Categories';
 import Sort from '../components/sort/Sort';
@@ -10,28 +11,31 @@ import Skeleton from '../components/pizzaBlock/Skeleton';
 import Pogination from '../components/Pogination/Pogination';
 
 function Home() {
-  let { data, status } = useSelector((state) => state.pizzasSlice);
+  let { data, status } = useSelector((state: RootState) => state.pizzasSlice);
   const activeCategory = useSelector(
-    (state) => state.filterSlice.activeCategory
+    (state: RootState) => state.filterSlice.activeCategory
   );
-  const sortValue = useSelector((state) => state.filterSlice.sortValue.sort);
-  const searchInput = useSelector((state) => state.searchSlize.searchInput);
+  const sortValue = useSelector(
+    (state: RootState) => state.filterSlice.sortValue.sort
+  );
+  const searchInput = useSelector(
+    (state: RootState) => state.searchSlize.searchInput
+  );
   const poginationSelect = useSelector(
-    (state) => state.poginationSlice.poginationSelect
+    (state: RootState) => state.poginationSlice.poginationSelect
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const order = sortValue.includes('-') ? 'asc' : 'desc';
   const categories = activeCategory > 0 ? `category=${activeCategory}` : '';
   const sort = sortValue.replace('-', '');
-
   useEffect(() => {
     dispatch(
       fetchPizzas({
         order,
         categories,
         sort,
-        poginationSelect,
+        poginationSelect: String(poginationSelect),
       })
     );
     window.scrollTo(0, 0);
@@ -61,7 +65,9 @@ function Home() {
         <div className="content__items">
           {status === 'pending'
             ? [...new Array(9)].map((_, index) => <Skeleton key={index} />)
-            : data.map((value, index) => <PizzaBlock key={index} {...value} />)}
+            : data.map((value, index: number) => (
+                <PizzaBlock key={index} {...value} />
+              ))}
         </div>
       )}
       <Pogination />

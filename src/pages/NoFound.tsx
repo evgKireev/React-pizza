@@ -1,3 +1,4 @@
+import React from 'react';
 import NoFoundBlock from '../components/NoFoundBlock/NoFoundBlock';
 function NoFound() {
   return (

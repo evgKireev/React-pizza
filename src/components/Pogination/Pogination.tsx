@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactPaginate from 'react-paginate';
 import style from './Pogination.module.scss';
 import { useDispatch } from 'react-redux';
@@ -18,7 +19,6 @@ function Pogination() {
         pageRangeDisplayed={4}
         pageCount={3}
         previousLabel="<"
-        renderOnZeroPageCount={null}
       />
     </>
   );

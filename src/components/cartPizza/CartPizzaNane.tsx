@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import cartEmptyPng from '../../assets/empty-cart.png';
+import React from 'react';
 
-function CartPizzaNane(params) {
+function CartPizzaNane() {
   return (
     <>
       <div className="cart cart--empty">

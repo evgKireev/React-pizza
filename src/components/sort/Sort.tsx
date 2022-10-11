@@ -1,14 +1,21 @@
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useRef, useEffect } from 'react';
 import { setSortValue } from '../../redux/filterSlice';
+import { RootState } from '../../redux/store';
 
 function Sort() {
-  const sortValue = useSelector((state) => state.filterSlice.sortValue);
+  const sortValue = useSelector(
+    (state: RootState) => state.filterSlice.sortValue
+  );
   const dispatch = useDispatch();
-  const sortRef = useRef();
+  const sortRef = useRef(null);
 
   const [open, setOpen] = useState(false);
-  const sortName = [
+  const sortName: {
+    name: string;
+    sort: string;
+  }[] = [
     { name: 'популярности (DESC)', sort: 'rating' },
     { name: 'популярности (ASC)', sort: '-rating' },
     { name: 'цене (DESC)', sort: 'price' },
@@ -17,8 +24,11 @@ function Sort() {
     { name: 'алфавиту (ASC)', sort: '-title' },
   ];
   useEffect(() => {
-    const eventSort = (e) => {
-      if (!e.path.includes(sortRef.current)) {
+    const eventSort = (e: MouseEvent) => {
+      const _e = e as MouseEvent & {
+        path: null[];
+      };
+      if (!_e.path.includes(sortRef.current)) {
         setOpen(false);
       }
     };

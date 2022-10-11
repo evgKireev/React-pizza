@@ -1,13 +1,30 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+export type CartPizzas = {
+  id: string;
+  title: string;
+  types: string;
+  sizes: number;
+  imageUrl: string;
+  count: number;
+  price: number;
+};
+
+interface CartSliceState {
+  pizzas: CartPizzas[];
+  pricePizza: number;
+}
+
+const initialState: CartSliceState = {
+  pizzas: [],
+  pricePizza: 0,
+};
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: {
-    pizzas: [],
-    pricePizza: 0,
-  },
+  initialState,
   reducers: {
-    addPizzas: (state, actions) => {
+    addPizzas: (state, actions: PayloadAction<CartPizzas>) => {
       const findPizza = state.pizzas.find(
         (value) => value.id === actions.payload.id
       );
@@ -24,7 +41,7 @@ const cartSlice = createSlice({
         0
       );
     },
-    minusPizza: (state, actions) => {
+    minusPizza: (state, actions: PayloadAction<string>) => {
       const findPizza = state.pizzas.find(
         (value) => value.id === actions.payload
       );
@@ -36,7 +53,7 @@ const cartSlice = createSlice({
         0
       );
     },
-    removePizzas: (state, actions) => {
+    removePizzas: (state, actions: PayloadAction<string>) => {
       state.pizzas = state.pizzas.filter(
         (value) => value.id !== actions.payload
       );

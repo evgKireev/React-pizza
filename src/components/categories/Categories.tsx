@@ -1,12 +1,14 @@
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../redux/store';
 import { setActiveCategory } from '../../redux/filterSlice';
 
 function Categories() {
   const activeCategory = useSelector(
-    (state) => state.filterSlice.activeCategory
+    (state: RootState) => state.filterSlice.activeCategory
   );
   const dispatch = useDispatch();
-  const categories = [
+  const categories: string[] = [
     'Все',
     'Мясные',
     'Вегетарианская',
